@@ -11,12 +11,14 @@ public class TesteFrameEJanelas{
 
     WebDriver driver = new ChromeDriver();
     String CAMINHO_DRIVER = "src/resource/chromedriver-v10205005.exe";
+    private DSL dsl;
 
     @Before
     public void inicializa(){
         System.setProperty("webdriver.chrome.driver", CAMINHO_DRIVER);
         driver.get("file://" + System.getProperty("user.dir") + "/src/resource/componentes.html");
         driver.manage().window().maximize();
+        dsl = new DSL(driver);
     }
 
     @After
@@ -27,7 +29,7 @@ public class TesteFrameEJanelas{
     @Test
     public void deveInteragirComFrames(){
         driver.switchTo().frame("frame1");
-        driver.findElement(By.id("frameButton")).click();
+        dsl.clicarBotao("frameButton");
         Alert alerta = driver.switchTo().alert();
         String texto = alerta.getText();
         Assert.assertEquals("Frame OK!", texto);
@@ -40,7 +42,7 @@ public class TesteFrameEJanelas{
 
     @Test
     public void deveInteragirComJanelas(){
-        driver.findElement(By.id("buttonPopUpEasy")).click();
+        dsl.clicarBotao("buttonPopUpEasy");
         driver.switchTo().window("Popup");
         driver.findElement(By.tagName("textarea")).sendKeys("Deu certo?");
         driver.close();
@@ -50,7 +52,7 @@ public class TesteFrameEJanelas{
 
     @Test
     public void deveInteragirComJanelasSemTitulo(){
-        driver.findElement(By.id("buttonPopUpHard")).click();
+        dsl.clicarBotao("buttonPopUpHard");
         System.out.println(driver.getWindowHandle());
         System.out.println(driver.getWindowHandles());
         driver.switchTo().window((String)driver.getWindowHandles().toArray()[1]);

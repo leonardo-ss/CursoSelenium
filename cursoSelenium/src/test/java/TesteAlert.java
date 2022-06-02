@@ -11,12 +11,14 @@ public class TesteAlert {
 
     WebDriver driver = new ChromeDriver();
     String CAMINHO_DRIVER = "src/resource/chromedriver-v10205005.exe";
+    private DSL dsl;
     
     @Before
     public void inicializa(){
         System.setProperty("webdriver.chrome.driver", CAMINHO_DRIVER);
         driver.get("file://" + System.getProperty("user.dir") + "/src/resource/componentes.html");
         driver.manage().window().maximize();
+        dsl = new DSL(driver);
     }
 
     @After
@@ -26,7 +28,7 @@ public class TesteAlert {
 
     @Test
     public void deveInteragirComAlertSimples(){
-        driver.findElement(By.id("alert")).click();
+        dsl.clicarBotao("alert");
         Alert alerta = driver.switchTo().alert();
         String texto = alerta.getText();
         Assert.assertEquals("Alert Simples", texto);
@@ -37,14 +39,14 @@ public class TesteAlert {
 
     @Test
     public void deveInteragirComAlertConfirm(){
-        driver.findElement(By.id("confirm")).click();
+        dsl.clicarBotao("confirm");
         Alert alerta = driver.switchTo().alert();
         Assert.assertEquals("Confirm Simples", alerta.getText());
         alerta.accept();
         Assert.assertEquals("Confirmado", alerta.getText());
         alerta.accept();
 
-        driver.findElement(By.id("confirm")).click();
+        dsl.clicarBotao("confirm");
         alerta = driver.switchTo().alert();
         Assert.assertEquals("Confirm Simples", alerta.getText());
         alerta.dismiss();;
@@ -54,7 +56,7 @@ public class TesteAlert {
 
     @Test
     public void deveInteragirComAlertPrompt(){
-        driver.findElement(By.id("prompt")).click();
+        dsl.clicarBotao("prompt");
         Alert alerta = driver.switchTo().alert();
         Assert.assertEquals("Digite um numero", alerta.getText());
         alerta.sendKeys("27");
