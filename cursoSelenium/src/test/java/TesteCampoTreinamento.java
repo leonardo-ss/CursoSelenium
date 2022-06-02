@@ -1,7 +1,6 @@
 import java.util.List;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -157,7 +156,7 @@ public class TesteCampoTreinamento {
     }
 
     @Test
-    public void deveBuscarTestosNaPagina(){
+    public void deveBuscarTextosNaPagina(){
 
         System.setProperty("webdriver.chrome.driver", CAMINHO_DRIVER);
         driver.get("file://" + System.getProperty("user.dir") + "/src/resource/componentes.html");
