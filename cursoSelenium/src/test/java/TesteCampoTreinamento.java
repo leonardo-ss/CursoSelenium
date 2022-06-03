@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.After;
@@ -8,7 +9,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
 
 public class TesteCampoTreinamento {
 
@@ -49,32 +49,20 @@ public class TesteCampoTreinamento {
 
     @Test
     public void deveInteragirComCheckBox(){
-        dsl.clicarRadio("elementosForm:comidaFavorita:2");
+        dsl.clicarCheck("elementosForm:comidaFavorita:2");
         Assert.assertTrue(dsl.isRadioMarcado("elementosForm:comidaFavorita:2"));
     }
     
     @Test
     public void deveInteragirComCombo(){
         dsl.selecionarCombo("elementosForm:escolaridade","Mestrado");
-        
         Assert.assertEquals("Mestrado", dsl.obterValorCombo("elementosForm:escolaridade"));
     }
 
     @Test
     public void deveVerificarValoresCombo(){
-        WebElement elemento = driver.findElement(By.id("elementosForm:escolaridade"));
-        Select combo = new Select(elemento);
-        List<WebElement> options = combo.getOptions();
-        Assert.assertEquals(8, options.size());
-
-        boolean encontrou = false;
-        for(WebElement option: options){
-            if(option.getText().equals("Mestrado")){
-                encontrou = true;
-                break;
-            }
-        }
-        Assert.assertTrue(encontrou);
+        Assert.assertEquals(8, dsl.obterQuantidadeOpcoesCombo("elementosForm:escolaridade"));
+        Assert.assertTrue(dsl.verificarOpcaoCombo("elementosForm:escolaridade", "Mestrado"));
     }
 
     @Test
@@ -83,14 +71,13 @@ public class TesteCampoTreinamento {
         dsl.selecionarCombo("elementosForm:esportes", "Corrida");
         dsl.selecionarCombo("elementosForm:esportes", "O que eh esporte?");
        
-        WebElement elemento = driver.findElement(By.id("elementosForm:esportes"));
-        Select combo = new Select(elemento);
-        List<WebElement> allSelectedOptions = combo.getAllSelectedOptions();
-        Assert.assertEquals(3, allSelectedOptions.size());
+        List<String> opcoesMarcadas = dsl.obterValoresCombo("elementosForm:esportes");
+        Assert.assertEquals(3, opcoesMarcadas.size());
 
-        combo.deselectByVisibleText("Corrida");
-        allSelectedOptions = combo.getAllSelectedOptions();
-        Assert.assertEquals(2, allSelectedOptions.size());
+        dsl.deselecionarCombo("elementosForm:esportes", "Natacao");
+        opcoesMarcadas = dsl.obterValoresCombo("elementosForm:esportes");
+        Assert.assertEquals(2, opcoesMarcadas.size());
+        Assert.assertTrue(opcoesMarcadas.containsAll(Arrays.asList("Corrida", "O que eh esporte?")));
     }
 
     @Test

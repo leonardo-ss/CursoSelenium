@@ -2,7 +2,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -31,12 +30,10 @@ public class TesteCadastro {
         dsl.escreve("elementosForm:nome","Leonardo");
         dsl.escreve("elementosForm:sobrenome","Santos");
         dsl.clicarBotao("elementosForm:sexo:0");
-        dsl.clicarBotao("elementosForm:comidaFavorita:2");
-        
+        dsl.clicarBotao("elementosForm:comidaFavorita:2"); 
         dsl.selecionarCombo("elementosForm:escolaridade", "Superior");
     //ou
         new Select(driver.findElement(By.id("elementosForm:esportes"))).selectByVisibleText("Futebol");
-
         dsl.clicarBotao("elementosForm:cadastrar");
 
         Assert.assertTrue(dsl.obterTexto(By.id("resultado")).startsWith("Cadastrado!"));
@@ -51,8 +48,7 @@ public class TesteCadastro {
     @Test
     public void deveValidarNomeObrigatorio(){
         dsl.clicarBotao("elementosForm:cadastrar");
-        Alert alert = driver.switchTo().alert();
-        Assert.assertEquals("Nome eh obrigatorio", alert.getText());
+        Assert.assertEquals("Nome eh obrigatorio", dsl.alertaObterTextoEAceita());
     }
 
     @Test
@@ -60,8 +56,7 @@ public class TesteCadastro {
         dsl.escreve("elementosForm:nome","Leonardo");
 
         dsl.clicarBotao("elementosForm:cadastrar");
-        Alert alert = driver.switchTo().alert();
-        Assert.assertEquals("Sobrenome eh obrigatorio", alert.getText());
+        Assert.assertEquals("Sobrenome eh obrigatorio", dsl.alertaObterTextoEAceita());
     }
 
     @Test
@@ -70,8 +65,7 @@ public class TesteCadastro {
         dsl.escreve("elementosForm:sobrenome","Santos");
 
         dsl.clicarBotao("elementosForm:cadastrar");
-        Alert alert = driver.switchTo().alert();
-        Assert.assertEquals("Sexo eh obrigatorio", alert.getText());
+        Assert.assertEquals("Sexo eh obrigatorio", dsl.alertaObterTextoEAceita());
     }
 
     @Test
@@ -83,8 +77,7 @@ public class TesteCadastro {
         dsl.clicarRadio("elementosForm:comidaFavorita:3");
 
         dsl.clicarBotao("elementosForm:cadastrar");
-        Alert alert = driver.switchTo().alert();
-        Assert.assertEquals("Tem certeza que voce eh vegetariano?", alert.getText());
+        Assert.assertEquals("Tem certeza que voce eh vegetariano?", dsl.alertaObterTextoEAceita());
     }
 
     @Test
@@ -97,8 +90,7 @@ public class TesteCadastro {
         dsl.selecionarCombo("elementosForm:esportes", "O que eh esporte?");
 
         dsl.clicarBotao("elementosForm:cadastrar");
-        Alert alert = driver.switchTo().alert();
-        Assert.assertEquals("Voce faz esporte ou nao?", alert.getText());
+        Assert.assertEquals("Voce faz esporte ou nao?", dsl.alertaObterTextoEAceita());
     }
 
 }
