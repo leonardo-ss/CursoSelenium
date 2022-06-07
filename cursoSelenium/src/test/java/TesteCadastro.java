@@ -53,7 +53,6 @@ public class TesteCadastro {
     @Test
     public void deveValidarSobreNomeObrigatorio(){
         page.setNome("Leonardo");
-
         page.cadastrar();
         Assert.assertEquals("Sobrenome eh obrigatorio", dsl.alertaObterTextoEAceita());
     }
@@ -62,7 +61,6 @@ public class TesteCadastro {
     public void deveValidarSexoObrigatorio(){
         page.setNome("Leonardo");
         page.setSobrenome("Santos");
-
         page.cadastrar();
         Assert.assertEquals("Sexo eh obrigatorio", dsl.alertaObterTextoEAceita());
     }
@@ -74,7 +72,6 @@ public class TesteCadastro {
         page.setSexoMasculino();
         page.setComidaCarne();
         page.setComidaVegetariano();
-
         page.cadastrar();
         Assert.assertEquals("Tem certeza que voce eh vegetariano?", dsl.alertaObterTextoEAceita());
     }
@@ -85,9 +82,7 @@ public class TesteCadastro {
         page.setSobrenome("Santos");
         page.setSexoMasculino();
         page.setComidaCarne();
-        page.setEsporte("Futebol");
-        page.setEsporte("O que eh esporte?");
-
+        page.setEsporte("Futebol", "O que eh esporte?");
         page.cadastrar();
         Assert.assertEquals("Voce faz esporte ou nao?", dsl.alertaObterTextoEAceita());
     }

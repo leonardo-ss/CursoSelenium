@@ -8,6 +8,8 @@ public class CampoTreinamentoPage {
         dsl = new DSL(driver);
     }
     
+    /*********** Setar **********/
+
     public void setNome(String nome){
         dsl.escreve("elementosForm:nome",nome);
     }
@@ -44,13 +46,16 @@ public class CampoTreinamentoPage {
         dsl.selecionarCombo("elementosForm:escolaridade", valor);
     }
 
-    public void setEsporte(String valor){
-        dsl.selecionarCombo("elementosForm:esportes",valor);
+    public void setEsporte(String... valores){
+        for(String valor: valores)
+            dsl.selecionarCombo("elementosForm:esportes",valor);
     }
 
     public void cadastrar(){
         dsl.clicarBotao("elementosForm:cadastrar");
     }
+
+    /*********** Obter ************/
 
     public String obterResultadoCadastro(){
         return dsl.obterTexto("resultado");
