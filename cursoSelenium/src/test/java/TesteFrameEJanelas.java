@@ -43,7 +43,7 @@ public class TesteFrameEJanelas{
     public void deveInteragirComFrameEscondido(){
         WebElement frame = driver.findElement(By.id("frame2"));
         //Scroll para encontrar o botão do frame
-        dsl.executarJS("window.scrollby(0, arguments[0])", frame.getLocation().y);
+        // dsl.executarJS("window.scrollby(0, arguments[0])", frame.getLocation().y)
         dsl.entrarFrame("frame2");
         dsl.clicarBotao("frameButton");
         String texto = dsl.alertaObterTextoEAceita();
