@@ -1,27 +1,38 @@
+package Testes;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import core.DSL;
 
 public class TesteFrameEJanelas{
 
-    WebDriver driver = new ChromeDriver();
-    String CAMINHO_DRIVER = "src/resource/chromedriver-v10205005.exe";
+    private WebDriver driver;
     private DSL dsl;
 
     @Before
-    public void inicializa(){
-        System.setProperty("webdriver.chrome.driver", CAMINHO_DRIVER);
-        driver.get("file://" + System.getProperty("user.dir") + "/src/resource/componentes.html");
-        // driver.manage().window().setSize(new Dimension(700, 500));
+    public void iniciar(){
+        driver = new ChromeDriver();
         driver.manage().window().maximize();
+        driver.get("file://" + System.getProperty("user.dir") + "/src/resource/componentes.html");
         dsl = new DSL(driver);
     }
+    // WebDriver driver = new ChromeDriver();
+    // String CAMINHO_DRIVER = "src/resource/chromedriver-v10205005.exe";
+    // private DSL dsl;
+
+    // @Before
+    // public void inicializa(){
+    //     System.setProperty("webdriver.chrome.driver", CAMINHO_DRIVER);
+    //     driver.get("file://" + System.getProperty("user.dir") + "/src/resource/componentes.html");
+    //     // driver.manage().window().setSize(new Dimension(700, 500));
+    //     driver.manage().window().maximize();
+    //     dsl = new DSL(driver);
+    // }
 
     @After
     public void finaliza(){
@@ -41,7 +52,7 @@ public class TesteFrameEJanelas{
 
     @Test
     public void deveInteragirComFrameEscondido(){
-        WebElement frame = driver.findElement(By.id("frame2"));
+        //WebElement frame = driver.findElement(By.id("frame2"));
         //Scroll para encontrar o botão do frame
         // dsl.executarJS("window.scrollby(0, arguments[0])", frame.getLocation().y)
         dsl.entrarFrame("frame2");

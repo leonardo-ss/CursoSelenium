@@ -1,3 +1,4 @@
+package Testes;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -5,19 +6,21 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import core.DSL;
+
 public class TesteAlert {
 
-    WebDriver driver = new ChromeDriver();
-    String CAMINHO_DRIVER = "src/resource/chromedriver-v10205005.exe";
+    private WebDriver driver;
     private DSL dsl;
-    
+
     @Before
-    public void inicializa(){
-        System.setProperty("webdriver.chrome.driver", CAMINHO_DRIVER);
-        driver.get("file://" + System.getProperty("user.dir") + "/src/resource/componentes.html");
+    public void iniciar(){
+        driver = new ChromeDriver();
         driver.manage().window().maximize();
+        driver.get("file://" + System.getProperty("user.dir") + "/src/resource/componentes.html");
         dsl = new DSL(driver);
     }
+    
 
     @After
     public void finaliza(){

@@ -1,3 +1,4 @@
+package Testes;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -13,11 +14,12 @@ import org.junit.runners.Parameterized.Parameters;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import core.DSL;
+
 @RunWith(Parameterized.class)
 public class TesteRegrasCadastro {
-    
-    WebDriver driver = new ChromeDriver();
-    String CAMINHO_DRIVER = "src/resource/chromedriver-v10205005.exe";
+
+    private WebDriver driver;
     private DSL dsl;
     private CampoTreinamentoPage page;
 
@@ -34,11 +36,12 @@ public class TesteRegrasCadastro {
     @Parameter(value = 5)
     public String msg;
 
+
     @Before
-    public void inicializa(){
-        System.setProperty("webdriver.chrome.driver", CAMINHO_DRIVER);
-        driver.get("file://" + System.getProperty("user.dir") + "/src/resource/componentes.html");
+    public void iniciar(){
+        driver = new ChromeDriver();
         driver.manage().window().maximize();
+        driver.get("file://" + System.getProperty("user.dir") + "/src/resource/componentes.html");
         dsl = new DSL(driver);
         page = new CampoTreinamentoPage(driver);
     }

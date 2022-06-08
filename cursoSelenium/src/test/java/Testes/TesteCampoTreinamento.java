@@ -1,3 +1,4 @@
+package Testes;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,17 +12,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class TesteCampoTreinamento {
+import core.DSL;
 
-    WebDriver driver = new ChromeDriver();
-    String CAMINHO_DRIVER = "src/resource/chromedriver-v10205005.exe";
+public class TesteCampoTreinamento {
+    
+    private WebDriver driver;
     private DSL dsl;
 
     @Before
-    public void inicializa(){
-        System.setProperty("webdriver.chrome.driver", CAMINHO_DRIVER);
-        driver.get("file://" + System.getProperty("user.dir") + "/src/resource/componentes.html");
+    public void iniciar(){
+        driver = new ChromeDriver();
         driver.manage().window().maximize();
+        driver.get("file://" + System.getProperty("user.dir") + "/src/resource/componentes.html");
         dsl = new DSL(driver);
     }
 
