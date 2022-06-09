@@ -1,22 +1,21 @@
-package Testes;
-import org.junit.After;
+package Teste;
+import static core.DriverFactory.getDriver;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-public class TesteCadastro {
+import Page.CampoTreinamentoPage;
+import core.BaseTest;
 
-    private WebDriver driver;
+public class TesteCadastro extends BaseTest{
+
     private CampoTreinamentoPage page;
 
     @Before
     public void iniciar(){
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get("file://" + System.getProperty("user.dir") + "/src/resource/componentes.html");
-        page = new CampoTreinamentoPage(driver);
+        getDriver().get("file://" + System.getProperty("user.dir") + "/src/resource/componentes.html");
+        page = new CampoTreinamentoPage();
     }
 
     // WebDriver driver = new ChromeDriver();
@@ -31,10 +30,7 @@ public class TesteCadastro {
     //     page = new CampoTreinamentoPage(driver);
     // }
 
-    @After
-    public void finaliza(){
-        driver.quit();
-    }
+    
     
     @Test
     public void deveRealizarCadastroComSucesso(){

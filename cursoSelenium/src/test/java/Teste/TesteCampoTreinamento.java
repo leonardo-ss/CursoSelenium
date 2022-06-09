@@ -1,4 +1,7 @@
-package Testes;
+package Teste;
+import static core.DriverFactory.getDriver;
+import static core.DriverFactory.killDriver;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,28 +11,23 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import core.DSL;
 
 public class TesteCampoTreinamento {
-    
-    private WebDriver driver;
+
     private DSL dsl;
 
     @Before
     public void iniciar(){
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get("file://" + System.getProperty("user.dir") + "/src/resource/componentes.html");
-        dsl = new DSL(driver);
+        getDriver().get("file://" + System.getProperty("user.dir") + "/src/resource/componentes.html");
+        dsl = new DSL();
     }
 
     @After
     public void finaliza(){
-        driver.quit();
+        killDriver();
     }
     
     @Test
@@ -87,7 +85,7 @@ public class TesteCampoTreinamento {
     public void deveInteragirComBotoes(){
         dsl.clicarBotao("buttonSimple");
 
-        WebElement botao = driver.findElement(By.id("buttonSimple"));
+        WebElement botao = getDriver().findElement(By.id("buttonSimple"));
         Assert.assertEquals("Obrigado!", botao.getAttribute("value"));
     }
 
@@ -106,12 +104,12 @@ public class TesteCampoTreinamento {
         
     @Test
     public void testJavascript(){
-        JavascriptExecutor js = (JavascriptExecutor) driver;
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
         // js.executeScript("alert('Testando js via selenium')");
         js.executeScript("document.getElementById('elementosForm:nome').value = 'Escrito via js'");
         js.executeScript("document.getElementById('elementosForm:sobrenome').type = 'radio'");
 
-        WebElement elemento = driver.findElement(By.id("elementosForm:nome"));
+        WebElement elemento = getDriver().findElement(By.id("elementosForm:nome"));
         js.executeScript("arguments[0].style.border = arguments[1]", elemento, "solid 4px red");
     }
 

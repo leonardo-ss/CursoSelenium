@@ -1,16 +1,11 @@
-package Testes;
+package Page;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
-import core.DSL;
+import core.BasePage;
 
-public class CampoTreinamentoPage {
+public class CampoTreinamentoPage extends BasePage{
 
-    private DSL dsl;
-    
-    public CampoTreinamentoPage(WebDriver driver){
-        dsl = new DSL(driver);
-    }
+
     
     /*********** Setar **********/
 

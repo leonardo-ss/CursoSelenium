@@ -1,9 +1,8 @@
-package Testes;
+package Teste;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,15 +10,15 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
+import Page.CampoTreinamentoPage;
+import core.BaseTest;
 import core.DSL;
+import core.DriverFactory;
 
 @RunWith(Parameterized.class)
-public class TesteRegrasCadastro {
+public class TesteRegrasCadastro extends BaseTest {
 
-    private WebDriver driver;
     private DSL dsl;
     private CampoTreinamentoPage page;
 
@@ -39,17 +38,11 @@ public class TesteRegrasCadastro {
 
     @Before
     public void iniciar(){
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get("file://" + System.getProperty("user.dir") + "/src/resource/componentes.html");
-        dsl = new DSL(driver);
-        page = new CampoTreinamentoPage(driver);
+        DriverFactory.getDriver().get("file://" + System.getProperty("user.dir") + "/src/resource/componentes.html");
+        dsl = new DSL();
+        page = new CampoTreinamentoPage();
     }
 
-    @After
-    public void finaliza(){
-        driver.quit();
-    }
 
     @Parameters
     public static Collection<Object[]> getCollection(){

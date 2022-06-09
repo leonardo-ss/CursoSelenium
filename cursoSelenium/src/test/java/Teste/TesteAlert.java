@@ -1,30 +1,27 @@
-package Testes;
+package Teste;
+import static core.DriverFactory.getDriver;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import core.DSL;
+import core.DriverFactory;
 
 public class TesteAlert {
-
-    private WebDriver driver;
     private DSL dsl;
 
     @Before
     public void iniciar(){
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get("file://" + System.getProperty("user.dir") + "/src/resource/componentes.html");
-        dsl = new DSL(driver);
+        getDriver().get("file://" + System.getProperty("user.dir") + "/src/resource/componentes.html");
+        dsl = new DSL();
     }
     
 
     @After
     public void finaliza(){
-        driver.quit();
+        DriverFactory.killDriver();
     }
 
     @Test
